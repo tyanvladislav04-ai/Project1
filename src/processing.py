@@ -12,9 +12,9 @@ state соответствует указанному значению"""
     return result_list
 
 
-def sort_by_date(filter_by_state_list, descending: bool = True) -> list:
+def sort_by_date(filter_by_state_list: list, descending: bool = True) -> list:
     """Функция, sort_by_date, которая принимает список словарей и необязательный параметр,
     задающий порядок сортировки (по умолчанию — убывание). Функция должна возвращать новый список,
     отсортированный по дате (date)"""
-    sorted_list = sorted(filter_by_state_list, key=lambda employee: employee['date'], reverse=True)
+    sorted_list = sorted(filter_by_state_list, key=lambda employee: employee['date'], reverse=descending)
     return sorted_list
