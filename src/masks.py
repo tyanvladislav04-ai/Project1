@@ -1,6 +1,6 @@
-card_number = input()
+#card_number = input()
 
-account = input()
+#account = input()
 
 
 def get_mask_card_number(card_number: str) -> str:

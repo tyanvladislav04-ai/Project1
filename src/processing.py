@@ -1,4 +1,4 @@
-filter_by_state_list = input()
+#filter_by_state_list = input()
 
 
 def filter_by_state(filter_by_state_list: list, state='EXECUTED') -> list:
