@@ -1,5 +1,3 @@
-#filter_by_state_list = input()
-
 
 def filter_by_state(filter_by_state_list: list, state='EXECUTED') -> list:
     """Функция, filter_by_state, которая принимает список словарей и опционально значение для ключа

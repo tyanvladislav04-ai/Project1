@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Iterator, Generator
+from typing import Any, Dict, Generator, Iterator, List
 
 
 def filter_by_currency(transactions: List[dict[str, Any]], currency_code: str) -> Iterator[Dict[str, Any]]:
@@ -32,5 +32,5 @@ def card_number_generator(start: int, end: int) -> Generator[str]:
         raise ValueError("Начальное значение должно быть меньше конечного")
     for number in range(start, end + 1):
         formatted = f"{number:016d}"
-        card_number = " ".join(formatted[i : i + 4] for i in range(0, 16, 4))
+        card_number = " ".join(formatted[i: i + 4] for i in range(0, 16, 4))
         yield card_number
