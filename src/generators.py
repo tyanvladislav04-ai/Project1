@@ -32,5 +32,5 @@ def card_number_generator(start: int, end: int) -> Generator[str]:
         raise ValueError("Начальное значение должно быть меньше конечного")
     for number in range(start, end + 1):
         formatted = f"{number:016d}"
-        card_number = " ".join(formatted[i: i + 4] for i in range(0, 16, 4))
+        card_number = " ".join(formatted[i : i + 4] for i in range(0, 16, 4))
         yield card_number

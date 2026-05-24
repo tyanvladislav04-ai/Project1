@@ -170,6 +170,23 @@ for card_number in card_number_generator(1, 5):
     0000 0000 0000 0004
     0000 0000 0000 0005
 ```
+10. Использование декоратора ```log```, который автоматически логирует начало и конец выполнения функции, 
+а также ее результаты или возникшие ошибки. Декоратор принимает необязательный аргумент filename , который определяет, 
+куда будут записываться логи (в файл или в консоль)
+
+Пример работы декоратора:
+```
+@log(filename="mylog.txt")
+def my_function(x, y):
+    return x + y
+
+my_function(1, 2)
+```
+
+```>>> my_function ok``` Ожидаемый вывод в лог-файл mylog.txt при успешном выполнении
+
+```>>> my_function error: тип ошибки. Inputs: (1, 2), {}``` Ожидаемый вывод при ошибке
+
 
 ### Тесты:
 
@@ -177,8 +194,8 @@ for card_number in card_number_generator(1, 5):
 ```test_get_mask_card_number_1```, ```test_filter_by_state```, ```test_sort_by_date```, ```test_mask_account_card```, 
 ```test_get_date```, ```test_filter_by_currency```, ```test_transaction_descriptions_1```, 
 ```test_transaction_descriptions_2```, ```test_card_number_generator```, 
-```test_card_number_generator_value_error``` проверяют работу функций указанных выше с 
-использованием конструкции assert.
+```test_card_number_generator_value_error```, ```test_log_1```, ```test_log_2```, ```test_log_error``` проверяют 
+работу функций указанных выше с использованием конструкции assert.
 
 
 
