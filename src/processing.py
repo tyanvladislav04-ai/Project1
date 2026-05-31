@@ -1,7 +1,7 @@
 def filter_by_state(filter_by_state_list: list, state="EXECUTED") -> list:
     """Функция, filter_by_state, которая принимает список словарей и опционально значение для ключа
-    state (по умолчанию 'EXECUTED'). Функция возвращает новый список словарей, содержащий только те словари, у которых ключ
-    state соответствует указанному значению"""
+    state (по умолчанию 'EXECUTED'). Функция возвращает новый список словарей, содержащий только те словари, у которых
+    ключ state соответствует указанному значению"""
     result_list = []
     for dict_state in filter_by_state_list:
         if dict_state["state"] == state:
