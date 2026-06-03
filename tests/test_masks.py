@@ -5,7 +5,12 @@ from src.masks import get_mask_account, get_mask_card_number
 
 @pytest.mark.parametrize(
     "account, mask_account",
-    [("73654108430135874305", "**4305"), ("", "**"), ("123456", "**3456"), ("12345678901234567890", "**7890")],
+    [
+        ("73654108430135874305", "**4305"),
+        ("", "Введен некорректный номер счета"),
+        ("123456", "Введен некорректный номер счета"),
+        ("12345678901234567890", "**7890"),
+    ],
 )
 def test_get_mask_account(account, mask_account):
     assert get_mask_account(account) == mask_account
@@ -22,7 +27,11 @@ def test_get_mask_account_1(acc_fix):
 
 @pytest.mark.parametrize(
     "card_number, mask_card_number",
-    [("7000792289606361", "7000 79** **** 6361"), ("", " ** **** "), ("12345678901234567890", "1234 56** **** 7890")],
+    [
+        ("7000792289606361", "7000 79** **** 6361"),
+        ("", "Введен некорректный номер карты"),
+        ("12345678901234567890", "Введен некорректный номер карты"),
+    ],
 )
 def test_get_mask_card_number(card_number, mask_card_number):
     assert get_mask_card_number(card_number) == mask_card_number
