@@ -4,7 +4,7 @@ import os
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 
 logger = logging.getLogger("masks")
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler(os.path.join(ROOT_DIR, "logs/masks.log"), "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
