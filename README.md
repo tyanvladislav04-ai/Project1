@@ -187,6 +187,13 @@ my_function(1, 2)
 
 ```>>> my_function error: тип ошибки. Inputs: (1, 2), {}``` Ожидаемый вывод при ошибке
 
+11. Использование функции ```func_csv```, которая считывает финансовые операции из CSV и выдает список словарей с 
+транзакциями.
+
+
+12. Использование функции ```funs_excel```, которая считывает финансовыу операции из Excel и выдает список словарей 
+с транзакциями
+
 
 ### Тесты:
 
@@ -194,8 +201,10 @@ my_function(1, 2)
 ```test_get_mask_card_number_1```, ```test_filter_by_state```, ```test_sort_by_date```, ```test_mask_account_card```, 
 ```test_get_date```, ```test_filter_by_currency```, ```test_transaction_descriptions_1```, 
 ```test_transaction_descriptions_2```, ```test_card_number_generator```, 
-```test_card_number_generator_value_error```, ```test_log_1```, ```test_log_2```, ```test_log_error``` проверяют 
-работу функций указанных выше с использованием конструкции assert.
+```test_card_number_generator_value_error```, ```test_log_1```, ```test_log_2```, ```test_log_error```, 
+```test_csv_decode_error```, ```test_valid_csv_single_transaction```, ```test_empty_csv_only_headers```, 
+```test_valid_excel_multiple_transactions```, ```test_file_not_found```, 
+```test_empty_excel_file``` проверяют работу функций указанных выше с использованием конструкции assert.
 
 
 
