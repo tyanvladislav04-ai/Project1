@@ -1,6 +1,7 @@
-import pandas as pd
 import csv
 import os
+
+import pandas as pd
 
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 transactions_csv_file = os.path.join(ROOT_DIR, "transactions.csv")

@@ -1,6 +1,7 @@
 import unittest
-import pandas as pd
 from unittest.mock import mock_open, patch
+
+import pandas as pd
 
 from src.CSV_Excel import func_csv, funs_excel
 
