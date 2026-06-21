@@ -17,7 +17,7 @@ def func_csv(transactions_csv_file) -> list:
             for row in reader:
                 transactions.append(row)
         return transactions
-    except (FileNotFoundError, ValueError, UnicodeDecodeError):
+    except FileNotFoundError, ValueError, UnicodeDecodeError:
         return []
 
 
@@ -27,5 +27,5 @@ def funs_excel(transactions_excel_file) -> list:
         excel_data = pd.read_excel(transactions_excel_file)
         transactions = excel_data.to_dict(orient="records")
         return transactions
-    except (FileNotFoundError, ValueError, UnicodeDecodeError):
+    except FileNotFoundError, ValueError, UnicodeDecodeError:
         return []

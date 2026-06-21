@@ -4,7 +4,7 @@ def filter_by_state(filter_by_state_list: list, state="EXECUTED") -> list:
     ключ state соответствует указанному значению"""
     result_list = []
     for dict_state in filter_by_state_list:
-        if dict_state["state"] == state:
+        if "state" in dict_state and dict_state["state"] == state:
             result_list.append(dict_state)
     return result_list
 
