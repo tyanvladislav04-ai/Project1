@@ -1,5 +1,9 @@
+import csv
+import json
 import os
 from typing import Any, Dict, List
+
+import pandas as pd
 
 from src.CSV_Excel import func_csv, funs_excel
 from src.operations import process_bank_search
@@ -18,7 +22,7 @@ def main() -> List[Dict[str, Any]]:
     )
 
     while True:
-        user_input_1 = input("\nВведите номер пункта (1–4): ").strip()
+        user_input_1 = input("\nВведите номер пункта (1–3): ").strip()
 
         if user_input_1 not in ("1", "2", "3"):
             print("Неверный ввод. Пожалуйста, выберите 1, 2 или 3")
@@ -72,13 +76,11 @@ def main() -> List[Dict[str, Any]]:
         print("\nВыводить только рублёвые транзакции? (Да/Нет)")
         rub_choice = input().strip().lower()
         if rub_choice == "да":
-            rub_operations = []
-            for op in filtered_operations:
-                currency = op.get("operationAmount", {}).get("currency", {}).get("code")
-                if currency == "RUB":
-                    rub_operations.append(op)
-
-            filtered_operations = rub_operations
+            filtered_operations = [
+                op
+                for op in filtered_operations
+                if op.get("operationAmount", {}).get("currency", {}).get("code") == "RUB"
+            ]
 
         # Поиск по описанию
         print("\nОтфильтровать список транзакций по определённому слову в описании? (Да/Нет)")
@@ -108,26 +110,62 @@ def main() -> List[Dict[str, Any]]:
             from_account = op.get("from", "")
             to_account = op.get("to", "")
 
-            if from_account:
+            if from_account and to_account:
+                # Перевод между счетами/картами
+                masked_from = mask_account_card(from_account)
+                masked_to = mask_account_card(to_account)
+                print(f"{masked_from} -> {masked_to}")
+            elif from_account:
+                # Исходящий перевод (только источник)
                 masked_from = mask_account_card(from_account)
                 print(masked_from)
-            if to_account:
+            elif to_account:
+                # Входящий перевод (только получатель)
                 masked_to = mask_account_card(to_account)
                 print(masked_to)
 
             # 3. Сумма
-            amount = op.get("operationAmount", {}).get("amount", "0")
-            currency_code = op.get("operationAmount", {}).get("currency", {}).get("code", "RUB")
-            if currency_code == "RUB":
-                amount_str = f"{float(amount):.0f} руб."
-            else:
-                amount_str = f"{float(amount)} {currency_code}"
-            print(f"Сумма: {amount_str}")
+            # Пытаемся получить сумму из разных возможных источников
+            amount_raw = None
+            currency_code = "RUB"
 
+            # Вариант 1: ищем в operationAmount (для JSON)
+            operation_amount = op.get("operationAmount", {})
+            if operation_amount:
+                amount_raw = operation_amount.get("amount")
+                currency_info = operation_amount.get("currency", {})
+                currency_code = currency_info.get("code", "RUB")
+
+            # Вариант 2: ищем на верхнем уровне (для CSV/Excel)
+            if amount_raw is None:
+                amount_raw = op.get("amount")
+            if currency_code == "RUB":  # если не нашли в operationAmount
+                currency_code = op.get("currency_code", "RUB")
+
+            # Обрабатываем пустые/некорректные значения
+            if pd.isna(amount_raw) or amount_raw is None:
+                amount_float = 0.0
+            else:
+                try:
+                    # Преобразуем строку в число, заменяя запятые на точки
+                    amount_str = str(amount_raw).replace(",", ".")
+                    amount_float = float(amount_str)
+                except (ValueError, TypeError) as ex:
+                    amount_float = 0.0
+
+            # Форматирование суммы
+            if currency_code == "RUB":
+                amount_str = f"{amount_float:.0f} руб."
+            else:
+                amount_str = f"{amount_float} {currency_code}"
+
+            print(f"Сумма: {amount_str}")
 
             print()  # Пустая строка между операциями
 
+        break
     return filtered_operations
 
 
-print(main())
+if __name__ == "__main__":
+    main()

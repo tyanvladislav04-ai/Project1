@@ -3,6 +3,7 @@ import os
 
 import pandas as pd
 
+
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 transactions_csv_file = os.path.join(ROOT_DIR, "transactions.csv")
 transactions_excel_file = os.path.join(ROOT_DIR, "transactions_excel.xlsx")
@@ -17,7 +18,7 @@ def func_csv(transactions_csv_file) -> list:
             for row in reader:
                 transactions.append(row)
         return transactions
-    except FileNotFoundError, ValueError, UnicodeDecodeError:
+    except (FileNotFoundError, ValueError, UnicodeDecodeError) as ex:
         return []
 
 
@@ -27,5 +28,5 @@ def funs_excel(transactions_excel_file) -> list:
         excel_data = pd.read_excel(transactions_excel_file)
         transactions = excel_data.to_dict(orient="records")
         return transactions
-    except FileNotFoundError, ValueError, UnicodeDecodeError:
+    except (FileNotFoundError, ValueError, UnicodeDecodeError) as ex:
         return []

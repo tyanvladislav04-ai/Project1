@@ -5,7 +5,7 @@ from collections import Counter
 def process_bank_search(data: list[dict], search: str) -> list[dict]:
     """Функция, которая принимает список словарей с данными о банковских операциях и строку поиска, а возвращает список
     словарей, у которых в описании есть данная строка"""
-    pattern = re.compile(search)
+    pattern = re.compile(search, re.IGNORECASE)
     return [item for item in data if pattern.search(str(item.get("description", "")))]
 
 
